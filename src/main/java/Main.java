@@ -1,7 +1,11 @@
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    private static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) throws Exception {
         List<Horse> horses = List.of(
@@ -14,6 +18,7 @@ public class Main {
                 new Horse("Cherry", 3)
         );
         Hippodrome hippodrome = new Hippodrome(horses);
+        LOGGER.info("Start of the race. Number of paticipants: {}", horses.size());
 
         for (int i = 0; i < 100; i++) {
             hippodrome.move();
@@ -23,6 +28,7 @@ public class Main {
 
         String winnerName = hippodrome.getWinner().getName();
         System.out.println(winnerName + " wins!");
+        LOGGER.info("End of the race. Winner is {}", winnerName);
     }
 
     private static void watch(Hippodrome hippodrome) throws Exception {
