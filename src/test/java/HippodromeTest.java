@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,21 +39,21 @@ class HippodromeTest {
     }
 
     @Test
-    void move() {
-        try (MockedStatic<Hippodrome> hippodromeMockedStatic = mockStatic(Hippodrome.class)) {
+    void move_CallsMoveMethodForAllHorses() {
             List<Horse> horseList = new ArrayList<>();
             for (int i = 0; i < 50; i++) {
-                horseList.add(new Horse("Horse" + i, i, i));
+                horseList.add(Mockito.mock(Horse.class));
             }
             Hippodrome hippodrome = new Hippodrome(horseList);
 
             hippodrome.move();
-            hippodromeMockedStatic.verify(() -> hippodrome.move());
-        }
+           for (Horse hors : horseList) {
+               Mockito.verify(hors, Mockito.times(1)).move();
+           }
     }
 
     @Test
-    void getWinner() {
+    void getWinner_ReturnCorrectWinner() {
         Hippodrome hippodrome = new Hippodrome(List.of(
                 new Horse("Horse0", 1 ,1),
                 new Horse("Horse1",1,2),

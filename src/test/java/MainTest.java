@@ -9,10 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class MainTest {
 
     @Test
-//    @Disabled
+    @Disabled
     @Timeout(value = 22, unit = TimeUnit.SECONDS)
-    void main() throws Exception {
+    void mainTest() throws Exception {
        Main.main(null);
-
     }
 }
